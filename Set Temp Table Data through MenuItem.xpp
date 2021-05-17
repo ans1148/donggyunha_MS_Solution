@@ -1,0 +1,29 @@
+//My customer wants to control inquiry privilege. 
+//So, I have to set the Inquiry button to the menu item button. 
+//And here is the solution.
+//First, write the class like below.
+class TYM_TR_MaterialDirectInquiryBtn
+{
+    public static void main(Args args)
+    {
+        Object                                  formRunObject;
+        FormDataSource                          fds;
+        TYM_TR_MaterialDeliveryDirectInOutTmp   tmpTable;
+
+        formRunObject = args.caller();
+        fds = args.caller().datasource(formDataSourceStr(TYM_TR_MaterialDeliveryDirectInOut, TYM_TR_MaterialDeliveryDirectInOutTmp)); //call form datasource
+
+        tmpTable.DeliveryNoteNo = "Teest";
+        tmpTable.insert();
+
+        formRunObject.SetTmpData(tmpTable); //call setTmpData method
+        fds.executeQuery();
+    }
+
+}
+
+//Write below method in caller form.
+public void SetTmpData(TYM_TR_MaterialDeliveryDirectInOutTmp _tmpTable)
+{
+    TYM_TR_MaterialDeliveryDirectInOutTmp.setTmpData(_tmpTable);
+}
